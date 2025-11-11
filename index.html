@@ -3,122 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>TypeQuest — The Typing Master</title>
-
-
+  <title>TypeQuest — Light Typing Master</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-  <style>
-    
-    :root{
-      --bg: #f7fbff;        
-      --card: #ffffff;      
-      --muted: #6b7c86;     
-      --accent: #009688;   
-      --accent-2: #2196f3;  
-      --accent-3: #ffb86b;  
-      --glass: rgba(0,0,0,0.04);
-      --radius: 14px;
-    }
-
-    
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,var(--bg), #eef7fb 400px);
-      color:#16323b;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      scroll-behavior:smooth;
-    }
-
-    header{
-      position:fixed; top:0; left:0; right:0; z-index:999;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:12px 20px; gap:12px;
-      background:black;
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--glass);
-      box-shadow: 0 6px 18px rgba(8,20,30,0.04);
-    }
-    .brand{display:flex;align-items:center;gap:12px;cursor:pointer}
-    .logo{width:46px;height:46px;border-radius:10px;padding:6px;background:linear-gradient(180deg,var(--card),#f1fbfb);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
-    .brand h1{font-size:18px;margin:0;color:var(--accent-2)}
-    nav{flex:1;margin-left:8px}
-    nav ul{display:flex;gap:10px;list-style:none;padding:0;margin:0;align-items:center}
-    nav a{color: white;text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
-    nav a:hover{color:var(--accent); background:rgba(0,0,0,0.02)}
-    .nav-actions{display:flex;gap:8px;align-items:center}
-    .btn{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700}
-    .btn.secondary{background:transparent;border:1px solid rgba(0,0,0,0.06);color:var(--muted)}
-    .icon-btn{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px;border-radius:8px;cursor:pointer;color:var(--muted)}
-
-    
-    main{max-width:1200px;margin:96px auto 80px;padding:0 18px}
-    section{margin-bottom:22px}
-    .card{background-color: rgba(0, 0, 0, 0.912);border-radius:var(--radius);padding:18px;border:2px solid black;box-shadow:0 10px 30px rgba(10,30,40,0.04)}
-    h2{color:var(--accent-2);margin:0 0 8px 0}
-    .muted{color:black;font-size:13px}
-
-    
-    .row{display:flex;gap:18px;align-items:flex-start;}
-    .col{flex:1}
-    .aside{width:320px;}
-
-   
-    .dash-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px}
-    .small-card{padding:12px;border-radius:12px;background-color: white;border:1px solid rgb(0, 0, 0)}
-    .stat {font-size:20px;font-weight:800;color:var(--accent)}
-
-    
-    .display-word{font-weight:800;font-size:20px;padding:10px;border-radius:10px;background:linear-gradient(90deg, rgba(33,150,243,0.08), rgba(0,150,136,0.06));text-align:center}
-
-
-    input[type="text"], textarea {width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:#fff;color:inherit}
-    textarea{min-height:120px;resize:vertical; border: 1px solid black; background-color: rgba(0, 0, 0, 0.098);}
-
-    .falling-area{position:relative;height:320px;border-radius:12px;background:linear-gradient(180deg,#f8fcff,#ffffff);overflow:hidden;border:1px dashed rgba(0,0,0,0.04)}
-    .falling-word{position:absolute;padding:8px 12px;border-radius:10px;font-weight:800;color:#042023;box-shadow:0 8px 18px rgba(0,0,0,0.06);background:linear-gradient(90deg,var(--accent),var(--accent-2));transform:translateY(-40px);white-space:nowrap}
-
-    
-    .charts{display:flex;gap:14px;align-items:stretch;margin-top:12px}
-    .charts .chart-card{flex:1;padding:12px}
-
-    .modal-back{position:fixed;inset:0;background:rgba(2,8,23,0.45);display:none;align-items:center;justify-content:center;z-index:1200}
-    .modal{width:420px;background:var(--card);padding:18px;border-radius:12px;border:1px solid var(--glass)}
-    .modal input{margin-top:8px}
-
-   
-    #downloadCert{display:none;background:var(--accent-2);color:#fff;padding:8px 12px;border-radius:10px;border:none;cursor:pointer}
-
-  
-    @media (max-width:1024px){
-      .dash-cards{grid-template-columns:repeat(2,1fr)}
-      .row{flex-direction:column}
-      .aside{width:100%}
-      .charts{flex-direction:column}
-    }
-    @media (max-width:640px){
-      nav ul{display:none}
-      .brand h1{font-size:16px}
-      main{padding:0 12px}
-    }
-
-    
-    .card { transform-origin: center; transition: transform .26s ease, box-shadow .26s ease; }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(10,30,40,0.08); }
-    .fade-in { animation: fadeIn .6s ease both; }
-    @keyframes fadeIn { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
-  </style>
 </head>
 <body>
 
+  <!-- NAV -->
   <header>
     <div class="brand" onclick="scrollToId('home')">
       <div class="logo" aria-hidden>
-        
+        <!-- inline svg logo (also used in certificate) -->
         <svg id="logo-svg" width="36" height="36" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <rect x="6" y="20" width="88" height="60" rx="14" fill="#e8f7fb"/>
           <rect x="22" y="34" width="12" height="10" rx="2" fill="#009688"/>
@@ -128,7 +24,7 @@
           <path d="M72 54 L86 70 L72 86" stroke="#2196f3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <h1 style="color: white;">TypeQuest</h1>
+      <h1>TypeQuest</h1>
     </div>
 
     <nav>
@@ -143,23 +39,24 @@
     </nav>
 
     <div class="nav-actions">
-      <button class="icon-btn" id="accentToggle" title="Toggle Accent (teal/blue)" style="color: white;">Accent</button>
-      <button class="icon-btn" id="profileBtn" title="Open profile" style="color: white;">Profile</button>
+      <button class="icon-btn" id="accentToggle" title="Toggle Accent (teal/blue)">Accent</button>
+      <button class="icon-btn" id="profileBtn" title="Open profile" >Profile</button>
       <button class="btn" id="startNow">Start Practicing</button>
     </div>
   </header>
 
   <main id="home">
 
+    <!-- HERO / DASHBOARD -->
     <section class="card fade-in">
       <div style="display:flex;justify-content:space-between;gap:18px;align-items:center">
         <div style="flex:1">
           <div style="display:flex;gap:14px;align-items:center">
-            <div style="font-weight:800;font-size:22px; color: white;">Hi, <span id="displayName">Guest</span></div>
+            <div style="font-weight:800;font-size:22px">Hi, <span id="displayName">Guest</span></div>
              <div style="background-color:var(--accent);color:white; padding:6px 10px;border-radius:12px;font-weight:800">Let's Start Typing</div>
           </div> 
           
-          <div class="muted" style="margin-top:8px; color: white;">Practice daily with fun games and track your improvement over time.</div>
+          <div class="muted" style="margin-top:8px">Practice daily with fun games and track your improvement over time.</div>
         </div>
 
         <div style="width:360px;">
@@ -191,9 +88,10 @@
       </div>
     </section>
 
+    <!-- PRACTICE -->
     <section id="practice" class="card fade-in">
-      <h2 style="color: white;">Practice Mode</h2>
-      <div class="muted" style="color: white;">Drills, custom text and keyboard focus. Use the Home Row drill to start.</div>
+      <h2>Practice Mode</h2>
+      <div class="muted">Drills, custom text and keyboard focus. Use the Home Row drill to start.</div>
 
       <div class="row" style="margin-top:12px">
         <div class="col card" style="background-color: white;">
@@ -218,20 +116,23 @@
 
           <div style="height:12px"></div>
 
-          
+          <div class="card">
+            <div class="muted">Virtual Keyboard</div>
+            <div style="margin-top:8px" class="muted">(visual hint) — highlights implemented in JS placeholder.</div>
+          </div>
         </aside>
       </div>
     </section>
 
-   
+    <!-- GAMES -->
     <section id="games" class="card fade-in">
-      <h2 style="color: white;">Typing Games</h2>
-      <div class="muted" style="color: white;">Play games to train speed & accuracy. Leaderboard is local to your browser.</div>
+      <h2>Typing Games</h2>
+      <div class="muted">Play games to train speed & accuracy. Leaderboard is local to your browser.</div>
 
       <div class="row" style="margin-top:12px">
         <div class="col card" style="background-color: white;">
           <div style="display:flex;justify-content:space-between;align-items:center; background-color: white;">
-            <div >
+            <div>
               <div style="font-weight:800">Falling Words</div>
               <div class="muted">Type falling words before they reach the bottom.</div>
             </div>
@@ -241,7 +142,7 @@
             </div>
           </div>
 
-          <div class="falling-area" id="fallArea" style="margin-top:12px; border: 1px solid black; background-color: rgba(0, 0, 0, 0.102);"></div>
+          <div class="falling-area" id="fallArea" style="margin-top:12px;"></div>
 
           <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
             <input id="fallInput" placeholder="Type a word and press Enter" onkeydown="if(event.key==='Enter') handleFallInput()">
@@ -252,7 +153,7 @@
         </div>
 
         <div class="aside">
-          <div class="card" style="background-color: white;">
+          <div class="card">
             <div style="font-weight:800">Typing Racer</div>
             <div class="muted">Type phrases to move your racer forward.</div>
             <div class="display-word" id="racerTarget" style="margin-top:10px">Press Start</div>
@@ -266,7 +167,7 @@
 
           <div style="height:12px"></div>
 
-          <div class="card" style="background-color: white;">
+          <div class="card">
             <div class="muted">Leaderboard (Local)</div>
             <div id="leaderboard" style="margin-top:8px" class="muted">No scores yet</div>
           </div>
@@ -274,13 +175,13 @@
       </div>
     </section>
 
-
+    <!-- TEST -->
     <section id="test" class="card fade-in">
-      <h2 style="color: white;">Typing Test</h2>
-      <div class="muted" style="color: white;">1-minute test. Results save to Analytics automatically.</div>
+      <h2>Typing Test</h2>
+      <div class="muted">1-minute test. Results save to Analytics automatically.</div>
 
       <div class="row" style="margin-top:12px">
-        <div class="col card" style="background-color: white;">
+        <div class="col card">
           <div class="muted">Passage</div>
           <div id="testPassage" style="margin-top:8px;min-height:80px;font-weight:600"></div>
           <textarea id="testInput" placeholder="Type here..." oninput="/* live */"></textarea>
@@ -291,7 +192,7 @@
           </div>
         </div>
 
-        <div class="aside card" style="background-color: white;">
+        <div class="aside card">
           <div class="muted">Latest Result</div>
           <div style="margin-top:8px;font-weight:900;font-size:20px" id="latestWPM">-- WPM</div>
           <div class="muted" id="latestAcc">-- % accuracy</div>
@@ -303,28 +204,28 @@
       </div>
     </section>
 
-
-    <section id="analytics" class="card fade-in" style="background-color: black;">
-      <h2 style="color: white;">Performance Analytics</h2>
+    <!-- ANALYTICS -->
+    <section id="analytics" class="card fade-in">
+      <h2>Performance Analytics</h2>
       <div class="muted">WPM and accuracy over time (saved locally).</div>
 
-      <div class="charts" style="margin-top:12px; ">
-        <div class="chart-card card" style="background-color: white;">
+      <div class="charts" style="margin-top:12px">
+        <div class="chart-card card">
           <canvas id="wpmChart"></canvas>
         </div>
-        <div class="chart-card card" style="background-color: white;">
+        <div class="chart-card card">
           <canvas id="accChart"></canvas>
         </div>
       </div>
     </section>
 
-   
-    <section id="challenges" class="card fade-in" style="background-color: black;">
-      <h2 style="color: white;">Daily Challenge & Streak</h2>
+    <!-- CHALLENGES & STREAK -->
+    <section id="challenges" class="card fade-in">
+      <h2>Daily Challenge & Streak</h2>
       <div class="muted">Complete today's challenge to earn XP and streak progress.</div>
 
       <div style="display:flex;gap:12px;margin-top:12px;flex-wrap:wrap">
-        <div class="card" style="flex:1;min-width:220px; background-color: white;" >
+        <div class="card" style="flex:1;min-width:220px">
           <div class="muted">Today's Challenge</div>
           <div style="font-weight:900;margin-top:6px" id="dailyTarget">-- WPM</div>
           <div class="controls" style="margin-top:10px">
@@ -332,14 +233,14 @@
             <button class="btn secondary" id="resetChallenge">Reset</button>
           </div>
         </div>
-        <div class="card" style="width:220px; background-color: white;">
-          <div class="muted">Streak🔥</div>
+        <div class="card" style="width:220px">
+          <div class="muted">Streak</div>
           <div style="font-weight:900;margin-top:6px" id="streakDisplay">0 days</div>
         </div>
 
-        <div class="card" style="flex-basis:100%; background-color: white;">
-          <div class="muted" style="color: black;">Tips</div>
-          <ul style="margin-top:8px;color:black">
+        <div class="card" style="flex-basis:100%">
+          <div class="muted">Tips</div>
+          <ul style="margin-top:8px;color:var(--muted)">
             <li>Practice 15 minutes daily to maintain streak.</li>
             <li>Play a short game to warm up before tests.</li>
             <li>Use custom practice for domain-specific typing (code, essays).</li>
@@ -349,11 +250,11 @@
     </section>
 
     <footer style="text-align:center;color:var(--muted);margin-top:18px;padding-bottom:40px">
-      TypeQuest — Made with ❤️.
+      TypeQuest — Light edition • Data stored locally in your browser.
     </footer>
   </main>
 
-  
+  <!-- Modal: Profile/Login -->
   <div class="modal-back" id="modal">
     <div class="modal card">
       <div style="display:flex;justify-content:space-between;align-items:center">
@@ -375,352 +276,10 @@
       </div>
     </div>
   </div>
-
-<script>
-
-const APP = {
-  user: localStorage.getItem('tq_user') || null,
-  analytics: JSON.parse(localStorage.getItem('tq_analytics')||'[]'), // [{date,wpm,acc}]
-  streak: parseInt(localStorage.getItem('tq_streak')||'0'),
-  lastPracticeDay: localStorage.getItem('tq_last_day') || null,
-  daily: JSON.parse(localStorage.getItem('tq_daily')||'null'),
-  fall: {running:false, words:[], interval:null, anim:null, score:0, best: parseInt(localStorage.getItem('tq_fall_best')||'0')},
-  racer: {running:false, distance:0, target:''},
-  test: {running:false, seconds:60, timer:null, startTime:0}
-};
-
-
-const $ = id => document.getElementById(id);
-function saveAnalytics(){ localStorage.setItem('tq_analytics', JSON.stringify(APP.analytics)); }
-function saveStreak(){ localStorage.setItem('tq_streak', APP.streak); localStorage.setItem('tq_last_day', APP.lastPracticeDay); }
-function saveDaily(){ localStorage.setItem('tq_daily', JSON.stringify(APP.daily)); }
-function saveUser(){ if(APP.user) localStorage.setItem('tq_user', APP.user); else localStorage.removeItem('tq_user'); }
-
-
-document.addEventListener('DOMContentLoaded', ()=>{
-  
-  $('profileBtn').addEventListener('click', openModal);
-  $('accentToggle').addEventListener('click', toggleAccent);
-  $('startNow').addEventListener('click', ()=> scrollToId('practice'));
-  document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click', e=>{}));
-
-  $('modal').style.display='none';
-
-  
-  $('practiceInput').value='';
-  $('practiceDone').innerText = 0;
-
-
-  $('startFallBtn').addEventListener('click', startFalling);
-  $('stopFallBtn').addEventListener('click', stopFalling);
-  $('fallBest').innerText = APP.fall.best;
-
-  $('startRacerBtn').addEventListener('click', startRacer);
-  $('stopRacerBtn').addEventListener('click', stopRacer);
-
-  $('startTestBtn').addEventListener('click', ()=> startTest(60));
-  $('stopTestBtn').addEventListener('click', stopTest);
-
-  $('attemptChallenge').addEventListener('click', ()=> scrollToId('test'));
-  $('resetChallenge').addEventListener('click', resetDaily);
-
-  $('downloadCert').addEventListener('click', generateCertificate);
-
-
-  $('displayName').innerText = APP.user || 'Guest';
-
-  setupDaily();
-
-  renderCharts();
-
-  $('testPassage').innerText = sampleParagraph();
-
-  
-  updateLatestUI();
-  updateStreakUI();
-});
-
-let accentState = 0;
-function toggleAccent(){
-  accentState = (accentState+1) % 2;
-  if(accentState===1){
-    document.documentElement.style.setProperty('--accent', '#2196f3');
-    document.documentElement.style.setProperty('--accent-2', '#009688');
-  } else {
-    document.documentElement.style.setProperty('--accent', '#009688');
-    document.documentElement.style.setProperty('--accent-2', '#2196f3');
-  }
-}
-
-
-function openModal(){ $('modal').style.display='flex'; $('nameInput').value = APP.user || ''; $('nameInput').focus(); }
-function closeModal(){ $('modal').style.display='none'; }
-function saveProfile(){ const v = $('nameInput').value.trim(); if(!v) return alert('Enter a name'); APP.user = v; saveUser(); $('displayName').innerText = APP.user; closeModal(); }
-function logout(){ APP.user=null; saveUser(); $('displayName').innerText='Guest'; closeModal(); }
-
-
-function scrollToId(id){ document.getElementById(id).scrollIntoView({behavior:'smooth', block:'start'}); }
-
-let practicePool = ["asdf","jkl;","sdfg","hjkl","qwer","uiop","zxcv","nm,."];
-let practiceIndex=0, practiceActive=false;
-function startPractice(){ practiceIndex=0; practiceActive=true; $('practiceWord').innerText = practicePool[practiceIndex]; $('practiceInput').value=''; $('practiceInput').focus(); }
-function stopPractice(){ practiceActive=false; $('practiceWord').innerText='Ready'; }
-function practiceCheck(){
-  if(!practiceActive) return;
-  const val = $('practiceInput').value.trim();
-  if(val === practicePool[practiceIndex]){
-    practiceIndex++;
-    $('practiceInput').value='';
-    $('practiceDone').innerText = practiceIndex;
-    if(practiceIndex >= practicePool.length){ stopPractice(); alert('Drill complete!'); updateStreakOnActivity(); }
-    else $('practiceWord').innerText = practicePool[practiceIndex];
-  }
-}
-function startCustomPractice(){ const txt = $('customText').value.trim(); if(!txt) return alert('Paste text'); practicePool = txt.split(/\s+/).slice(0,200); startPractice(); }
-
-
-const fallArea = $('fallArea');
-let fallLastTime = null;
-let FALL_SPEED = 60; 
-function startFalling(){
-  if(APP.fall.running) return;
-  APP.fall.running = true; APP.fall.words = []; APP.fall.score = 0; $('fallScore').innerText = 0;
-  spawnFallWord();
-  APP.fall.interval = setInterval(spawnFallWord, 1400);
-  APP.fall.anim = requestAnimationFrame(stepFall);
-}
-function stopFalling(){
-  APP.fall.running=false;
-  clearInterval(APP.fall.interval);
-  cancelAnimationFrame(APP.fall.anim);
-  fallArea.querySelectorAll('.falling-word').forEach(n=>n.remove());
-  APP.fall.words=[];
-  fallLastTime = null;
-}
-function spawnFallWord(){
-  const word = randomWord();
-  const el = document.createElement('div'); el.className='falling-word'; el.textContent = word;
-  const x = Math.max(8, Math.random()*(fallArea.clientWidth-120));
-  el.style.left = x + 'px'; el.style.top='-36px';
-  fallArea.appendChild(el);
-  APP.fall.words.push({el, text:word, x, y:-36});
-}
-function stepFall(ts){
-  if(!APP.fall.running) return;
-  if(!fallLastTime) fallLastTime = ts;
-  const dt = (ts - fallLastTime)/1000; fallLastTime = ts;
-  const toRemove = [];
-  APP.fall.words.forEach(w=>{
-    w.y += FALL_SPEED * dt;
-    w.el.style.top = w.y + 'px';
-    if(w.y > fallArea.clientHeight - 28){ toRemove.push(w); }
-  });
-  toRemove.forEach(w=>{
-    try{ w.el.remove(); }catch(e){}
-    APP.fall.words = APP.fall.words.filter(x=>x!==w);
-  });
-  APP.fall.anim = requestAnimationFrame(stepFall);
-}
-function handleFallInput(){
-  const val = $('fallInput').value.trim();
-  if(!val) return;
-  const found = APP.fall.words.find(w=>w.text === val);
-  if(found){
-    APP.fall.score += Math.max(1, Math.round(found.text.length/2));
-    $('fallScore').innerText = APP.fall.score;
-    found.el.remove();
-    APP.fall.words = APP.fall.words.filter(x=>x!==found);
-    if(APP.fall.score > APP.fall.best){ APP.fall.best = APP.fall.score; localStorage.setItem('tq_fall_best', APP.fall.best); $('fallBest').innerText = APP.fall.best; }
-  }
-  $('fallInput').value='';
-}
-
-
-function startRacer(){
-  APP.racer.running = true; APP.racer.distance=0; $('racerDist').innerText='0';
-  newRacerTarget(); $('racerInput').value=''; $('racerInput').focus();
-}
-function stopRacer(){ APP.racer.running=false; $('racerTarget').innerText='Stopped'; }
-function newRacerTarget(){ APP.racer.target = phrase(4); $('racerTarget').innerText = APP.racer.target; }
-function handleRacerInput(){
-  const v = $('racerInput').value.trim();
-  if(!v) return;
-  if(v === APP.racer.target){
-    APP.racer.distance += v.length;
-    $('racerDist').innerText = APP.racer.distance;
-    $('racerInput').value='';
-    newRacerTarget();
-    updateStreakOnActivity();
-    addLeaderboard(APP.racer.distance);
-  }
-}
-function phrase(n){ const pool = ["typing","speed","accuracy","keyboard","practice","function","variable","progress","focus","challenge"]; let s=[]; for(let i=0;i<n;i++) s.push(pool[Math.floor(Math.random()*pool.length)]); return s.join(' '); }
-function randomWord(){ const pool = ["apple","keyboard","speed","accuracy","challenge","typing","javascript","quest","function","variable","progress","practice","rhythm","velocity","rocket"]; return pool[Math.floor(Math.random()*pool.length)]; }
-function addLeaderboard(score){
-  let lb = JSON.parse(localStorage.getItem('tq_leader')||'[]');
-  const name = APP.user || 'Guest';
-  lb.push({name,score,date:new Date().toLocaleDateString()});
-  lb = lb.sort((a,b)=>b.score-a.score).slice(0,8);
-  localStorage.setItem('tq_leader', JSON.stringify(lb));
-  renderLeaderboard();
-}
-function renderLeaderboard(){
-  const lb = JSON.parse(localStorage.getItem('tq_leader')||'[]');
-  const el = $('leaderboard');
-  if(!lb.length){ el.innerText='No scores yet'; return; }
-  el.innerHTML = '<ol style="padding-left:18px;margin:0">';
-  lb.forEach(item => el.innerHTML += `<li style="margin:6px 0">${item.name}: ${item.score}</li>`);
-  el.innerHTML += '</ol>';
-}
-
-const TEST_POOL = [
-  "Typing tests are great for improving speed and accuracy. Practice consistently to see growth.",
-  "The quick brown fox jumps over the lazy dog. This pangram contains every letter of the alphabet.",
-  "Daily practice of focused typing increases your words per minute while reducing errors."
-];
-function sampleParagraph(){ return TEST_POOL[Math.floor(Math.random()*TEST_POOL.length)]; }
-
-function startTest(seconds=60){
-  if(APP.test.running) return;
-  APP.test.running = true; APP.test.seconds = seconds; APP.test.startTime = Date.now();
-  const passage = sampleParagraph();
-  $('testPassage').innerText = passage; $('testInput').value=''; $('testTimer').innerText = seconds;
-  APP.test.timer = setInterval(()=>{
-    APP.test.seconds--;
-    $('testTimer').innerText = APP.test.seconds;
-    if(APP.test.seconds<=0) finishTest();
-  },1000);
-  $('testInput').focus();
-}
-function stopTest(){ if(!APP.test.running) return; clearInterval(APP.test.timer); APP.test.running=false; }
-function finishTest(){
-  clearInterval(APP.test.timer); APP.test.running=false;
-  const typed = $('testInput').value.trim();
-  const source = $('testPassage').innerText;
-  const correctChars = charAccuracy(typed, source);
-  const accuracy = Math.round((correctChars / Math.max(1, source.length))*100);
-  const minutes = Math.max( (Date.now() - APP.test.startTime)/60000, 1/60 );
-  const wpm = Math.round( (typed ? typed.split(/\s+/).length : 0) / minutes );
-  // save analytics
-  APP.analytics.push({date:new Date().toLocaleDateString(), wpm, acc:accuracy});
-  saveAnalytics();
-  // show result
-  $('latestWPM').innerText = `${wpm} WPM`; $('latestAcc').innerText = `${accuracy} %`;
-  // certificate eligibility
-  if(wpm>=40 && accuracy>=90){ $('downloadCert').style.display='inline-block'; }
-  updateStreakOnTest();
-  renderCharts();
-  alert(`Test complete — ${wpm} WPM, ${accuracy}% accuracy`);
-}
-
-function charAccuracy(a,b){
-  const m = Math.min(a.length,b.length);
-  let c=0; for(let i=0;i<m;i++) if(a[i]===b[i]) c++;
-  return c;
-}
-
-let wpmChart=null, accChart=null;
-function renderCharts(){
-  const labels = APP.analytics.map((d,i)=> `${i+1} · ${d.date}`);
-  const wpms = APP.analytics.map(d=>d.wpm);
-  const accs = APP.analytics.map(d=>d.acc);
-  const wctx = $('wpmChart').getContext('2d'), actx = $('accChart').getContext('2d');
-  if(wpmChart) wpmChart.destroy(); if(accChart) accChart.destroy();
-  wpmChart = new Chart(wctx, { type:'line', data:{labels, datasets:[{label:'WPM', data:wpms, backgroundColor:'rgba(33,150,243,0.12)', borderColor:'rgba(33,150,243,0.95)', fill:true, tension:0.25} ] }, options:{responsive:true, plugins:{legend:{display:false}} }});
-  accChart = new Chart(actx, { type:'bar', data:{labels, datasets:[{label:'Accuracy', data:accs, backgroundColor:'rgba(0,150,136,0.85)'}]}, options:{responsive:true, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true, max:100}}}});
-}
-
-function setupDaily(){
-  const today = new Date().toLocaleDateString();
-  if(!APP.daily || APP.daily.date !== today){
-    const base = APP.analytics.length ? APP.analytics[APP.analytics.length-1].wpm : 20;
-    const target = Math.max(20, Math.round(base * (1 + (Math.random()*0.20 + 0.05))));
-    APP.daily = {date: today, target, done:false};
-    saveDaily();
-  }
-  $('dailyTarget').innerText = `${APP.daily.target} WPM`;
-  $('dailyTarget').style.color = 'var(--accent)';
-}
-
-function updateStreakOnTest(){
-  const today = new Date().toLocaleDateString();
-  if(APP.lastPracticeDay === today) return;
-  const yesterday = new Date(Date.now()-86400000).toLocaleDateString();
-  APP.streak = (APP.lastPracticeDay === yesterday) ? APP.streak + 1 : 1;
-  APP.lastPracticeDay = today;
-  saveStreak();
-  updateStreakUI();
-}
-
-function updateStreakOnActivity(){
-  const today = new Date().toLocaleDateString();
-  if(APP.lastPracticeDay === today) return;
-  const yesterday = new Date(Date.now()-86400000).toLocaleDateString();
-  APP.streak = (APP.lastPracticeDay === yesterday) ? APP.streak + 1 : 1;
-  APP.lastPracticeDay = today;
-  saveStreak(); updateStreakUI();
-}
-
-function updateStreakUI(){ $('streakCount').innerText = APP.streak; $('streakDisplay').innerText = `${APP.streak} days`; }
-
-
-async function generateCertificate(){
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({orientation:'landscape', unit:'pt', format:'a4'});
-  // border
-  doc.setLineWidth(2); doc.setDrawColor(30,40,50);
-  doc.rect(20,20, doc.internal.pageSize.width-40, doc.internal.pageSize.height-40);
-  // inline svg -> image
-  const svgEl = document.getElementById('logo-svg');
-  const svgStr = new XMLSerializer().serializeToString(svgEl);
-  const blob = new Blob([svgStr], {type:'image/svg+xml;charset=utf-8'});
-  const url = URL.createObjectURL(blob);
-  const img = new Image(); img.src = url;
-  await new Promise(r=>img.onload=r);
-  
-  const imgW = 120, imgH = 120;
-  const cx = doc.internal.pageSize.width/2;
-  const canvas = document.createElement('canvas'); canvas.width = imgW; canvas.height = imgH;
-  const ctx = canvas.getContext('2d'); ctx.fillStyle='#fff'; ctx.fillRect(0,0,imgW,imgH); ctx.drawImage(img,0,0,imgW,imgH);
-  const dataUrl = canvas.toDataURL('image/png');
-  doc.addImage(dataUrl,'PNG', cx - imgW/2, 40, imgW, imgH);
- 
-  doc.setFontSize(26); doc.setTextColor(10,30,40);
-  doc.text('TypeQuest Certificate of Achievement', cx, 180, {align:'center'});
-  const name = APP.user || 'Player One';
-  doc.setFontSize(20); doc.text(name, cx, 220, {align:'center'});
-  const last = APP.analytics.length ? APP.analytics[APP.analytics.length-1] : {wpm:0, acc:0};
-  doc.setFontSize(14); doc.text(`For achieving ${last.wpm} WPM with ${last.acc}% accuracy`, cx, 250, {align:'center'});
-  doc.setFontSize(12); doc.text(`Awarded on: ${new Date().toLocaleDateString()}`, cx, 280, {align:'center'});
-  doc.save(`TypeQuest_Certificate_${name.replace(/\s+/g,'_')}.pdf`);
-}
-
-
-function renderLeaderboardOnLoad(){ renderLeaderboard(); }
-
-function updateLatestUI(){
-  if(APP.analytics.length){
-    const last = APP.analytics[APP.analytics.length-1];
-    $('latestWPM').innerText = `${last.wpm} WPM`;
-    $('latestAcc').innerText = `${last.acc} %`;
-  }
-  $('dailyProgress').innerText = Math.min(100, Math.round((APP.streak/7)*100));
-  renderCharts();
-  renderLeaderboardOnLoad();
-}
-function resetDaily(){ localStorage.removeItem('tq_daily'); APP.daily=null; setupDaily(); alert('Daily challenge reset'); }
-
-document.addEventListener('DOMContentLoaded', ()=>{
- 
-  $('fallInput').addEventListener('keydown', (e)=>{ if(e.key==='Enter') handleFallInput(); });
-
-});
-
-renderLeaderboardOnLoad();
-updateLatestUI();
-
-</script>
-
-</body>
-</html>
-
+  <script src="app.js"></script>
+  </body>
+  </html>
+    
+      
+     
+          
