@@ -27,9 +27,6 @@ It helps users improve their typing speed and accuracy through real-time feedbac
 
 ---
 
-## 📸 Screenshots
-
-
 
 ## 🧩 How It Works
 
@@ -45,24 +42,6 @@ It helps users improve their typing speed and accuracy through real-time feedbac
 
 ---
 
-## ⚙️ Installation and Setup
-
-To run this project locally:
-
-```bash
-# Clone the repository
-git clone https://github.com/<your-username>/TypeQuest.git
-
-# Navigate into the project folder
-cd TypeQuest
-
-# Open the project
-# Simply open index.html in your browser
-```
-
-Or just open the `index.html` file directly in any modern web browser.
-
----
 
 ## 🌐 Live Demo
 
@@ -106,16 +85,8 @@ git push origin feature/your-feature
 
 **👩‍💻 Princy Tomer**
 💼 *Web Developer | Self Learner | Passionate about Frontend Projects*
-📧 [[YourEmail@example.com](mailto:YourEmail@example.com)] *(optional)*
-🌐 [Your Portfolio or LinkedIn link] *(optional)*
+📧 princythakur8218@gmail.com
 
 ---
 
-## 🪪 License
 
-This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
-
----
-
-Would you like me to add a **small project description section with badges** (like “Made with ❤️ using HTML, CSS, JS” or GitHub shields for stars, forks, etc.)?
-It makes your README look more attractive and professional on GitHub.
