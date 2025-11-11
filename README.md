@@ -46,7 +46,7 @@ It helps users improve their typing speed and accuracy through real-time feedbac
 ## 🌐 Live Demo
 
 Check out the live version of the website here:
-👉 [TypeQuest Live Demo](https://<your-demo-link>.netlify.app) *(Replace with your actual link)*
+👉 https://princcyy12.github.io/TypeQuest-/
 
 ---
 
